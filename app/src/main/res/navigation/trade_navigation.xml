@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trade_navigation"
+    app:startDestination="@id/currentTrade">
+
+    <fragment
+        android:id="@+id/currentTrade"
+        android:name="com.finance.trade_learn.view.currentTrade"
+        android:label="currentTrade" >
+        <action
+            android:id="@+id/action_currentTrade_to_history_of_trade"
+            app:destination="@id/history_of_trade" />
+    </fragment>
+    <fragment
+        android:id="@+id/history_of_trade"
+        android:name="com.finance.trade_learn.view.history_of_trade"
+        android:label="fragment_history_of_trade"
+        tools:layout="@layout/fragment_history_of_trade" >
+        <action
+            android:id="@+id/action_history_of_trade_to_currentTrade"
+            app:destination="@id/currentTrade" />
+    </fragment>
+</navigation>

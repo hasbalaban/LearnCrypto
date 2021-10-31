@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/walletPage"
+        android:name="com.finance.trade_learn.view.walletPage"
+        android:label="walletPage" />
+    <fragment
+        android:id="@+id/marketPage"
+        android:name="com.finance.trade_learn.view.marketPage"
+        android:label="marketPage">
+        <action
+            android:id="@+id/action_marketPage_to_tradePage"
+            app:destination="@id/tradePage" >
+
+
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/tradePage"
+        android:name="com.finance.trade_learn.view.tradePage"
+        android:label="tradePage" />
+    <fragment
+        android:id="@+id/home"
+        android:name="com.finance.trade_learn.view.home"
+        android:label="home">
+        <action
+            android:id="@+id/action_home_to_tradePage"
+            app:destination="@id/tradePage">
+
+
+        </action>
+
+    </fragment>
+
+
+</navigation>

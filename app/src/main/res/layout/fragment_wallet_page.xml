@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:text="Total Value ( $ )"
+                android:textAlignment="center"
+                android:textColor="@color/onClickSellBack"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/totalValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/pozitive"
+                android:textSize="27sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#B5B5B5" />
+
+        <EditText
+            android:id="@+id/serachMyCoins"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="25"
+            android:background="@drawable/edittext_wallet"
+            android:drawableEnd="@drawable/search"
+            android:hint="Search"
+            android:paddingLeft="15dp"
+            android:paddingEnd="5dp"
+            android:textColorHint="#0E0E0E"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+            <TextView
+                android:paddingTop="5dp"
+                android:textSize="20sp"
+                android:text="Symbol"
+                android:textColor="@color/onClickSellBack"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+            <TextView
+                android:textColor="@color/onClickSellBack"
+                android:paddingTop="5dp"
+                android:textSize="20sp"
+                android:text="Amount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+            <TextView
+                android:textColor="@color/onClickSellBack"
+                android:paddingTop="5dp"
+                android:textSize="20sp"
+                android:text="Value ($)"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="200">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myCoins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

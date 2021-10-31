@@ -1,0 +1,33 @@
+
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#F6F3F3"
+    android:layout_height="45dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_alignParentStart="true"
+            android:layout_width="40dp"
+            android:padding="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user"
+            android:background="@drawable/circle"
+             />
+
+        <ImageView
+            android:id="@+id/searchCoin"
+            android:layout_alignParentEnd="true"
+            android:layout_width="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search"
+             />
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>

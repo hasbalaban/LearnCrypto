@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickLisener"
+            type="com.finance.trade_learn.clickListener.ListenerInterface" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:padding="5dp"
+                android:src="@drawable/just_icon"
+
+                />
+
+            <TextView
+                android:id="@+id/coinName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:paddingStart="5dp"
+                android:paddingTop="7dp"
+                android:textAlignment="center"
+                android:textColor="#202BED"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/coinChangePercent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:paddingStart="3dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="2dp"
+                android:textColor="@color/negative"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Buy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buy_style"
+                android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="Buy"
+                android:textColor="@color/onClickBuyText"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/Sell"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/sell_style"
+                android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:text="Sell"
+                android:textColor="@color/SellText"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="15"
+            android:orientation="vertical"
+            android:paddingLeft="25dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="25dp">
+
+            <EditText
+
+                android:id="@+id/coinPrice"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/style_trade"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="Price"
+                android:textAlignment="center"
+                android:textColorHint="#474242" />
+
+
+            <RelativeLayout
+                android:id="@+id/relayout_amount"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_trade">
+
+                <ImageView
+                    android:id="@+id/minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                    android:src="@drawable/minus" />
+
+                <EditText
+                    android:id="@+id/coinAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toStartOf="@id/raise"
+                    android:layout_toEndOf="@id/minus"
+                    android:background="@drawable/none"
+                    android:hint="Amount"
+                    android:inputType="number|numberDecimal"
+                    android:nextFocusRight="@drawable/raise"
+                    android:textAlignment="center"
+                    android:textColorHint="#474242" />
+
+                <ImageView
+                    android:id="@+id/raise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                    android:src="@drawable/raise" />
+
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/Total"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/style_trade"
+                android:focusable="false"
+                android:hint="Total (USDT)"
+                android:inputType="number|numberDecimal"
+                android:textAlignment="center"
+                android:textColorHint="#474242" />
+
+
+            <RelativeLayout
+                android:id="@+id/relayout_avaible"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="50dp"
+                    android:layout_toStartOf="@id/avaibleAmount"
+                    android:padding="10dp"
+                    android:text="Avaible"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/avaibleAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@id/symbol"
+                    android:padding="10dp"
+                    android:text="1000"
+                    android:textColor="@color/onClickSellBack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:padding="10dp"
+                    android:text="USDT"
+                    android:textColor="@color/onClickBuyBack"
+                    android:textSize="17sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/percent_avaible"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/percent_of_avaible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="100dp"
+                    android:outlineAmbientShadowColor="@color/pozitive"
+                    android:outlineSpotShadowColor="@color/black"
+                    android:shadowColor="@color/negative" />
+
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/doTrade"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/onClickBuyBack"
+                android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                android:text=" Buy BTC"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/history_of_trade"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:onClick="@{view-> clickLisener.ClickListener(view)}"
+                    android:src="@drawable/history_of_trade" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

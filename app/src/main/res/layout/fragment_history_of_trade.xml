@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/titles"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/coinName"
+                android:textColor="@color/black"
+                android:layout_weight="5"
+                android:paddingTop="5dp"
+                android:paddingStart="1dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="name"
+                />
+
+            <TextView
+                android:id="@+id/coinAmount"
+                android:textColor="@color/black"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="8dp"
+                android:layout_height="match_parent"
+                android:text="Amount" />
+
+            <TextView
+                android:id="@+id/coinPrice"
+                android:textColor="@color/black"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:padding="5dp"
+                android:text="Price"
+                android:layout_height="match_parent"  />
+
+            <TextView
+                android:id="@+id/total"
+                android:textColor="@color/black"
+                android:layout_weight="5"
+                android:paddingTop="5dp"
+                android:paddingLeft="15dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="total" />
+
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/time"
+                android:textColor="@color/black"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:paddingTop="5dp"
+                android:layout_height="match_parent"
+                android:text="Date" />
+            <TextView
+                android:id="@+id/operation"
+                android:textColor="@color/black"
+                android:layout_weight="2"
+                android:paddingTop="5dp"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="State" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_below="@id/titles"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="#000000"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/view1"
+            android:paddingTop="5dp"
+            android:layout_marginTop="5dp" />
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+      <variable
+          name="populerCoin"
+          type="com.finance.trade_learn.models.modelsConvector.CoinsHome"
+      />
+
+  </data>
+
+    <LinearLayout
+        android:padding="5dp"
+        android:id="@+id/layout_populer_coins"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_width="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/populerCoinName"
+                android:text="@{populerCoin.coinName}"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/populerCoinChangePercent"
+                android:text="@{populerCoin.coinChangePercente}"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:id="@+id/populerCoinPrice"
+            android:text="@{populerCoin.coinPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</layout>

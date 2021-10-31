@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.finance.trade_learn.models.create_new_model_for_tem_history.NewModelForItemHistory" />
+
+    </data>
+
+    <RelativeLayout
+
+        android:id="@+id/Relayout_Wallet"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/coinImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:padding="15dp"
+            android:src="@drawable/coin" />
+
+        <TextView
+            android:id="@+id/coinName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:paddingTop="15dp"
+            android:text="@{data.CoinName}"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/coinAmount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:paddingTop="20dp"
+            android:text="@{data.CoinAmount}"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/coinTotal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:paddingTop="20dp"
+            android:text="@{data.Total}"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+        <View
+            android:layout_marginBottom="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#575555"/>
+
+    </RelativeLayout>
+
+</layout>
