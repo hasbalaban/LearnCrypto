@@ -1,6 +1,10 @@
 package com.finance.trade_learn.view
 
 
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,38 +13,35 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.*
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.ActivityMainBinding
-import com.finance.trade_learn.utils.sendNotificationPer15minutes
+import com.finance.trade_learn.utils.testWorkManager
 import com.finance.trade_learn.viewModel.viewModelUtils
-import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 
 var isCameFromActivity = false
 
-class MainActivity : AppCompatActivity() {
-    lateinit var controller: NavController
-    lateinit var dataBindingMain: ActivityMainBinding
-    lateinit var viewModelUtils: viewModelUtils
-    val disposable = CompositeDisposable()
+class MainActivity : AppCompatActivity(){
+    private lateinit var controller: NavController
+    private lateinit var dataBindingMain: ActivityMainBinding
+    private lateinit var viewModelUtils: viewModelUtils
+
+    // val disposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBindingMain = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        BottomNavigationItemClickListener()
+        bottomNavigationItemClickListener()
 
         isOneEntering()
-
-        testWorkManager()
 
 
     }
 
 
-    fun BottomNavigationItemClickListener() {
+    // to navigate acording click in fragment
+    private fun bottomNavigationItemClickListener() {
 
         controller = findNavController(R.id.fragmentContainerView)
         dataBindingMain.options.setupWithNavController(controller)
@@ -55,24 +56,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     //check is first entering or no ? // if it's first time add 1000 dollars
-    fun isOneEntering() {
+    private fun isOneEntering() {
         viewModelUtils = viewModelUtils()
-        viewModelUtils.isOneEntering(this)
+        val state = viewModelUtils.isOneEntering(this)
+        if (state) {
+            // these functions just for test
+            testWorkManager()
+            Log.i("first", "this is first Entering")
+        } else
+            Log.i("firstNot", "this is not first Entering")
 
     }
 
 
     override fun onRestart() {
 
-
         Log.i("destttt", controller.currentDestination?.label.toString())
         if (isCameFromActivity) {
             isCameFromActivity = false
 
-            val currentDirections = controller.currentDestination?.label.toString()
 
-
-            when (currentDirections) {
+            when (controller.currentDestination?.label.toString()) {
                 "marketPage" -> {
                     val directions = marketPageDirections.actionMarketPageToTradePage()
                     controller.navigate(directions)
@@ -91,24 +95,5 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
     }
 
-
-    // this will change because we use this fun for tests...
-    fun testWorkManager() {
-        val constraint = Constraints.Builder()
-            .setRequiresBatteryNotLow(true)
-            .build()
-
-        val myWorkRequest: WorkRequest =
-            PeriodicWorkRequestBuilder<sendNotificationPer15minutes>(15, TimeUnit.MINUTES)
-                .setConstraints(constraint)
-                .build()
-
-
-        val myWorkRequest1:WorkRequest= OneTimeWorkRequestBuilder<sendNotificationPer15minutes>()
-            .setConstraints(constraint)
-            .build()
-        WorkManager.getInstance().enqueue(myWorkRequest)
-        WorkManager.getInstance().enqueue(myWorkRequest1)
-    }
 
 }

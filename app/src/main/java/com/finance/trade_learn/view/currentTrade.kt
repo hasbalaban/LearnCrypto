@@ -15,7 +15,6 @@ import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.finance.trade_learn.clickListener.ListenerInterface
 import com.finance.trade_learn.R
@@ -30,15 +29,15 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     private lateinit var toast: Toast
-    var viewVisible = true
-    var currentPrice = 0.0
-    var runnable = Runnable { }
-    var handler = Handler(Looper.getMainLooper())
+    private var viewVisible = true
+    private var currentPrice = 0.0
+    private var runnable = Runnable { }
+    private var handler = Handler(Looper.getMainLooper())
 
-    lateinit var dataBindingCurrentTrade: FragmentCurrentTradeBinding
+    private lateinit var dataBindingCurrentTrade: FragmentCurrentTradeBinding
     private var tradeState = tradeEnum.Buy
     private lateinit var viewModelCurrentTrade: viewModelCurrentTrade
-    var coinName = "BTC"
+    private var coinName = "BTC"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +48,7 @@ class currentTrade : Fragment(), TextWatcher {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBindingCurrentTrade = DataBindingUtil.inflate(
             inflater, R.layout.fragment_current_trade,
             container, false
@@ -67,14 +66,14 @@ class currentTrade : Fragment(), TextWatcher {
     //call this function when viewCrated to initialize addTextChangedListener etc.
     // get dataFrom Database and Api // Call fun setInitialize()
     //call fun startAnimation()- set Click Listener
-    fun setup() {
+    private fun setup() {
 
         toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
 
         viewModelCurrentTrade = viewModelCurrentTrade(requireContext())
         setInitialize()
         dataBindingCurrentTrade.coinName.setText(coinName + " / USDT")
-        dataBindingCurrentTrade.clickLisener = ClickListenerInitialize
+        dataBindingCurrentTrade.clickLisener = clickListenerInitialize
         dataBindingCurrentTrade.coinAmount.addTextChangedListener(this)
         dataBindingCurrentTrade.coinPrice.addTextChangedListener(this)
         getDetailsOfCoinFromDatabase()
@@ -83,7 +82,7 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     //first start this to get name of we had clicked
-    fun setInitialize() {
+    private fun setInitialize() {
 
         coinName = sharedPreferencesManager(requireContext())
             .getSharedPreferencesString("coinName")
@@ -94,7 +93,7 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     //animation to start
-    fun startAnimation() {
+    private fun startAnimation() {
         val animationBuy =
             AnimationUtils.loadAnimation(requireContext(), R.anim.animation_for_buy_button)
         val buyButton = dataBindingCurrentTrade.Buy
@@ -105,47 +104,41 @@ class currentTrade : Fragment(), TextWatcher {
         val sellButton = dataBindingCurrentTrade.Sell
         sellButton.animation = animationSell
 
-        val animation_to_right =
+        val animationToRight =
             AnimationUtils.loadAnimation(requireContext(), R.anim.anime_to_right)
+        animationToRight.duration = 400
+        val coinRice = dataBindingCurrentTrade.coinPrice
+        coinRice.animation = animationToRight
 
-        val coin_rice = dataBindingCurrentTrade.coinPrice
-        animation_to_right.duration = 400
-        coin_rice.animation = animation_to_right
-
-        val relayout_amount = dataBindingCurrentTrade.relayoutAmount
-        animation_to_right.duration = 700
-        relayout_amount.animation = animation_to_right
+        val relayoutAmount = dataBindingCurrentTrade.relayoutAmount
+        animationToRight.duration = 700
+        relayoutAmount.animation = animationToRight
 
         val total = dataBindingCurrentTrade.Total
-        animation_to_right.duration = 1000
-        total.animation = animation_to_right
+        animationToRight.duration = 1000
+        total.animation = animationToRight
 
-        val relayout_avaible = dataBindingCurrentTrade.relayoutAvaible
-        animation_to_right.duration = 500
-        relayout_avaible.animation = animation_to_right
+        val relayoutAvaible = dataBindingCurrentTrade.relayoutAvaible
+        animationToRight.duration = 500
+        relayoutAvaible.animation = animationToRight
 
-        val do_trade_button = dataBindingCurrentTrade.doTrade
-        animation_to_right.duration = 500
-        do_trade_button.animation = animation_to_right
+        val doTradeButton = dataBindingCurrentTrade.doTrade
+        animationToRight.duration = 500
+        doTradeButton.animation = animationToRight
 
-        val history_of_trade = dataBindingCurrentTrade.historyOfTrade
-        animation_to_right.duration = 500
-        history_of_trade.animation = animation_to_right
+        val historyOfTrade = dataBindingCurrentTrade.historyOfTrade
+        animationToRight.duration = 500
+        historyOfTrade.animation = animationToRight
 
     }
 
 
     // this function manager time to get data in per 5 seek.
-    fun upDatePer5Sec() {
-        runnable = object : Runnable {
-            override fun run() {
-
-                //call this function for update
-                getDataFromApi()
-                handler.postDelayed(runnable, 3000)
-            }
-
-
+    //we override here runable as Lambda instead Object
+    private fun upDatePer5Sec() {
+        runnable = Runnable { //call this function for update
+            getDataFromApi()
+            handler.postDelayed(runnable, 3000)
         }
         handler.post(runnable)
 
@@ -157,7 +150,7 @@ class currentTrade : Fragment(), TextWatcher {
     fun getDetailsOfCoinFromDatabase(coinName: String = "USDT") {
         viewModelCurrentTrade.getDetailsOfCoinFromDatabase(coinName)
         if (viewVisible) {
-            viewModelCurrentTrade.coinAmountLiveData.observe(viewLifecycleOwner, Observer {
+            viewModelCurrentTrade.coinAmountLiveData.observe(viewLifecycleOwner, {
                 if (it != null) {
 
                     val text = (it.toString())
@@ -175,13 +168,12 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     // we call this function per 5 second .we getting data from Api on this function
-    fun getDataFromApi() {
-        viewModelCurrentTrade.GetSelectedCoinDetails(coinName)
+    private fun getDataFromApi() {
+        viewModelCurrentTrade.getSelectedCoinDetails(coinName)
         if (viewVisible) {
             viewModelCurrentTrade.selectedCoinToTradeDetails.observe(
-                viewLifecycleOwner,
-                Observer { coin ->
-                    currentPrice = coin[0].price
+                viewLifecycleOwner, { coin ->
+                    currentPrice = coin[0].price.toDouble()
                     putDataInItemSettings(coin[0])
 
 
@@ -197,10 +189,10 @@ class currentTrade : Fragment(), TextWatcher {
     }
 
     // this fun for binding of fata - change percente/price etc.
-    fun putDataInItemSettings(coin: BaseModelOneCryptoModel) {
+    private fun putDataInItemSettings(coin: BaseModelOneCryptoModel) {
 
         try {
-            val coinPrice = coin.price.toString()+"0"
+            val coinPrice = coin.price
             dataBindingCurrentTrade.coinPrice.setText(coinPrice)
 
 
@@ -216,7 +208,7 @@ class currentTrade : Fragment(), TextWatcher {
                 dataBindingCurrentTrade.coinChangePercent.setTextColor(Color.parseColor("#F6465D"))
             } else {
                 if (coinPercentChange == "") {
-                    dataBindingCurrentTrade.coinChangePercent.setText("Hata!")
+                    dataBindingCurrentTrade.coinChangePercent.setText(R.string.fail)
                     dataBindingCurrentTrade.coinChangePercent.setTextColor(Color.parseColor("#2ebd85"))
                 } else {
                     dataBindingCurrentTrade.coinChangePercent.setText("+ " + coinPercentChange + "%")
@@ -235,18 +227,17 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     //create tost message function
-    fun toastMessages(messages: String = "") {
-        if (messages != "") {
+    fun toastMessages(messages: Int = 1) {
+        if (messages != 1) {
             toast.cancel()
             toast = Toast.makeText(requireContext(), messages, Toast.LENGTH_SHORT)
-            //   toast.cancel()
             toast.show()
         }
     }
 
 
     // listener override here and initialize
-    val ClickListenerInitialize = object : ListenerInterface {
+    private val clickListenerInitialize = object : ListenerInterface {
         override fun ClickListener(view: View) {
             when (view.id) {
                 dataBindingCurrentTrade.Buy.id -> {
@@ -274,13 +265,13 @@ class currentTrade : Fragment(), TextWatcher {
                             }
 
                         } else {
-                            toastMessages("Lütfen Geçerli bir değer giriniz")
+                            toastMessages(R.string.trueValue)
 
                         }
                     }
                     // if amount equals zero (0) show messages
                     else {
-                        toastMessages("Lütfen Geçerli bir değer giriniz")
+                        toastMessages(R.string.trueValue)
 
                     }
 
@@ -312,11 +303,11 @@ class currentTrade : Fragment(), TextWatcher {
                         if (logicalCompare) {
                             operationTrade()
                         } else {
-                            toastMessages("İşlem başarısız. Bakiyeyi kontrol et.")
+                            toastMessages(R.string.proggresState)
                         }
 
                     } else {
-                        toastMessages("please enter amount")
+                        toastMessages(R.string.enterAmountDialog)
                     }
 
 
@@ -356,7 +347,7 @@ class currentTrade : Fragment(), TextWatcher {
 
 
     // function for trade with seek seekBarsProgress
-    fun seekBarsProgress() {
+    private fun seekBarsProgress() {
 
         dataBindingCurrentTrade.percentOfAvaible.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -371,7 +362,7 @@ class currentTrade : Fragment(), TextWatcher {
 
                         dataBindingCurrentTrade.coinAmount.setText(percentAmount.toString())
                         if (percentAmount.toString() == "0") {
-                            dataBindingCurrentTrade.Total.setText("0.000000")
+                            dataBindingCurrentTrade.Total.setText(R.string.addZeros)
                         }
 
 
@@ -380,7 +371,7 @@ class currentTrade : Fragment(), TextWatcher {
 
                         dataBindingCurrentTrade.percentOfAvaible.max = maxOfSeekBar()
                         if (percentAmount.toString() == "0") {
-                            dataBindingCurrentTrade.Total.setText("0.000000")
+                            dataBindingCurrentTrade.Total.setText(R.string.addZeros)
                         }
 
                         dataBindingCurrentTrade.coinAmount.setText(percentAmount.toString())
@@ -415,12 +406,12 @@ class currentTrade : Fragment(), TextWatcher {
         val amount = dataBindingCurrentTrade.coinAmount.text.toString()
         if (avaibleAmount != "" && total != "" && amount != "") {
 
-            when (tradeState) {
+            operationState = when (tradeState) {
                 tradeEnum.Buy -> {
-                    operationState = avaibleAmount.toDouble() >= total.toDouble()
+                    avaibleAmount.toDouble() >= total.toDouble()
                 }
                 tradeEnum.Sell -> {
-                    operationState = avaibleAmount.toDouble() >= amount.toDouble()
+                    avaibleAmount.toDouble() >= amount.toDouble()
                 }
 
             }
@@ -434,26 +425,24 @@ class currentTrade : Fragment(), TextWatcher {
 
     // this fun for trade operation - buy , sell operation etc.
     fun operationTrade() {
-        Log.i("den1", "1")
         when (tradeState) {
             tradeEnum.Buy -> {
-                Log.i("den1", "4")
-                val Amount = dataBindingCurrentTrade.coinAmount.text.toString()
-                val Price = dataBindingCurrentTrade.coinPrice.text.toString()
-                if (Amount != "" && Price != "") {
+                val amount = dataBindingCurrentTrade.coinAmount.text.toString()
+                val price = dataBindingCurrentTrade.coinPrice.text.toString()
+                if (amount != "" && price != "") {
 
-                    val coinAmount = Amount.toDouble()
+                    val coinAmount = amount.toDouble()
                     val coinPrice = currentPrice
                     val total = coinAmount * coinPrice
 
-                    viewModelCurrentTrade.buyCoin(coinName, coinAmount, total,currentPrice)
-                    viewModelCurrentTrade.state.observe(viewLifecycleOwner, Observer {
+                    viewModelCurrentTrade.buyCoin(coinName, coinAmount, total, currentPrice)
+                    viewModelCurrentTrade.state.observe(viewLifecycleOwner, {
                         if (it) {
                             getDetailsOfCoinFromDatabase()
-                            toastMessages("İşlem başarılı")
+                            toastMessages(R.string.succes)
 
                         } else {
-                            toastMessages("İşlem başarısız...")
+                            toastMessages(R.string.fail)
                         }
                     })
 
@@ -462,25 +451,22 @@ class currentTrade : Fragment(), TextWatcher {
 
             }
             tradeEnum.Sell -> {
-                Log.i("den1", "2")
-                val Amount = dataBindingCurrentTrade.coinAmount.text.toString()
-                val Price = dataBindingCurrentTrade.coinPrice.text.toString()
-                if (Amount != "" && Price != "") {
+                val amount = dataBindingCurrentTrade.coinAmount.text.toString()
+                val price = dataBindingCurrentTrade.coinPrice.text.toString()
+                if (amount != "" && price != "") {
 
-                    val coinAmount = Amount.toDouble()
+                    val coinAmount = amount.toDouble()
                     val coinPrice = currentPrice
                     val total = coinAmount * coinPrice
 
-                    Log.i("den1", "3")
-                    viewModelCurrentTrade.sellCoin(coinName, coinAmount, total,currentPrice)
-                    viewModelCurrentTrade.state.observe(viewLifecycleOwner, Observer {
-                        Log.i("den1", "4")
+                    viewModelCurrentTrade.sellCoin(coinName, coinAmount, total, currentPrice)
+                    viewModelCurrentTrade.state.observe(viewLifecycleOwner, {
                         if (it) {
                             getDetailsOfCoinFromDatabase(coinName)
-                            toastMessages("İşlem başarılı..")
+                            toastMessages(R.string.succes)
 
                         } else {
-                            toastMessages("İşlem başarısız..")
+                            toastMessages(R.string.fail)
                         }
                     })
 
@@ -508,7 +494,7 @@ class currentTrade : Fragment(), TextWatcher {
         dataBindingCurrentTrade.Sell.setBackgroundColor(Color.parseColor("#f5f5f5"))
 
         dataBindingCurrentTrade.doTrade.setBackgroundColor(Color.parseColor("#2ebd85"))
-        dataBindingCurrentTrade.doTrade.setText("Buy")
+        dataBindingCurrentTrade.doTrade.setText(R.string.textBuy)
     }
 
 
@@ -525,7 +511,7 @@ class currentTrade : Fragment(), TextWatcher {
         dataBindingCurrentTrade.doTrade.setBackgroundColor(Color.parseColor("#F6465D"))
 
 
-        dataBindingCurrentTrade.doTrade.setText("Sell")
+        dataBindingCurrentTrade.doTrade.setText(R.string.textSell)
 
     }
 
@@ -563,12 +549,11 @@ class currentTrade : Fragment(), TextWatcher {
         if (dataBindingCurrentTrade.coinAmount.text.toString() != "" &&
             dataBindingCurrentTrade.coinPrice.text.toString() != ""
         ) {
-            val amount = dataBindingCurrentTrade.coinAmount.text.toString().toDouble()
-            val price = dataBindingCurrentTrade.coinPrice.text.toString().toDouble()
+            val amount = dataBindingCurrentTrade.coinAmount.text.toString().toBigDecimal()
+            val price = dataBindingCurrentTrade.coinPrice.text.toString().toBigDecimal()
 
 
-
-            if (amount > 0.0 && price > 0.0) {
+            if (amount.toDouble() > 0.0 && price.toDouble() > 0.0) {
                 val total = (amount * price).toString()
                 dataBindingCurrentTrade.Total.setText(total)
 

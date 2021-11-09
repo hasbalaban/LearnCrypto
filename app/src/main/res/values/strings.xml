@@ -3,4 +3,35 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="usdt"> / USDT</string>
+
+
+    <string name="home" >Home</string>
+    <string name="Market" >Market</string>
+    <string name="Trade" >Trade</string>
+    <string name="Wallet" >Wallet</string>
+    <string name="hintSearch" >Search Coin</string>
+    <string name="name">Name:</string>
+    <string name="lastPrice">last Price:</string>
+    <string name="change24">24h change:</string>
+    <string name="textBuy">Buy</string>
+    <string name="textSell">Sell</string>
+    <string name="Avaible">Avaible</string>
+    <string name="TotalValue">Total Value ( $ )</string>
+    <string name="Search">Search</string>
+    <string name="Symbol">Symbol</string>
+    <string name="Amount">Amount</string>
+    <string name="Value">Value ($)</string>
+    <string name="price">Price</string>
+    <string name="total">Total</string>
+    <string name="totalUSDT">Total (USDT)</string>
+    <string name="date">Date</string>
+    <string name="state">State</string>
+    <string name="trueValue">please input True Value</string>
+    <string name="proggresState">Progress is failed, Check your balance</string>
+    <string name="enterAmountDialog">please enter amount</string>
+    <string name="succes">Progress Succesed</string>
+    <string name="fail">Progress Failed</string>
+    <string name="addZeros">0.000000</string>
+
+
 </resources>

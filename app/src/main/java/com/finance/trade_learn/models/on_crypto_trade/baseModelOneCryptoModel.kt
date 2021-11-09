@@ -10,7 +10,7 @@ data class BaseModelOneCryptoModel (
 	val name : String,
 	val logo_url : String,
 	val status : String,
-	val price : Double,
+	val price : String,
 	val price_date : String,
 	val price_timestamp : String,
 	val circulating_supply : Long,

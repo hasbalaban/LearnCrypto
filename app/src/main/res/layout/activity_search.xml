@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="@drawable/search_edittext"
             android:drawableStart="@drawable/search"
-            android:hint="search coin"
+            android:hint="@string/hintSearch"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"/>
         <androidx.recyclerview.widget.RecyclerView

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kripto Öğren</string>
+    <string name="hello_blank_fragment">merhaba boş fragment</string>
+    <string name="usdt"> / USDT</string>
+
+    <string name="home" >Anasayfa</string>
+    <string name="Market" >Market</string>
+    <string name="Trade" >Ticaret</string>
+    <string name="Wallet" >Cüzdan</string>
+    <string name="hintSearch" >Coin Ara</string>
+    <string name="name">Coin Adı:</string>
+    <string name="lastPrice">Güncel Fiyat:</string>
+    <string name="change24">24h Değişim:</string>
+    <string name="textBuy">Al</string>
+    <string name="textSell">Sat</string>
+    <string name="Avaible">Bulunan</string>
+    <string name="TotalValue">Toplam Değer ( $ )</string>
+    <string name="Search">Ara</string>
+    <string name="Symbol">Sembol</string>
+    <string name="Amount">Adet</string>
+    <string name="Value">Değer ($)</string>
+    <string name="price">Fiyat</string>
+    <string name="total">Toplam</string>
+    <string name="totalUSDT">Toplam (USDT)</string>
+    <string name="date">Tarih</string>
+    <string name="state">Durum</string>
+    <string name="trueValue">Lütfen geçerli bir değer giriniz</string>
+    <string name="proggresState">İşlem başarısız. Bakiyeyi kontrol et</string>
+    <string name="enterAmountDialog">Lütfen Adet girin</string>
+    <string name="succes">İşlem başarılı</string>
+    <string name="fail">İşlem başarısız</string>
+    <string name="addZeros">0.000000</string>
+</resources>

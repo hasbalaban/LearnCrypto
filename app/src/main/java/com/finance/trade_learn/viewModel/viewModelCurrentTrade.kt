@@ -18,14 +18,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
 class viewModelCurrentTrade(context: Context) : ViewModel() {
-    var disposable = CompositeDisposable()
+    private var disposable = CompositeDisposable()
     var state = MutableLiveData<Boolean>()
-    val coinAmountLiveData = MutableLiveData<Double>()
-    val dao = dataBaseService.invoke(context).databaseDao()
+    val coinAmountLiveData = MutableLiveData<BigDecimal>()
+    private val dao = dataBaseService.invoke(context).databaseDao()
     val selectedCoinToTradeDetails = MutableLiveData<List<BaseModelOneCryptoModel>>()
 
     // get details coin if exists in database - so if i have
@@ -34,9 +35,9 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val coin = dao.getOnCoinForTrade(coinName)
             withContext(Dispatchers.Main) {
-                coinAmountLiveData.value = 0.0
+                coinAmountLiveData.value = BigDecimal.valueOf(0.0)
                 if (coin != null) {
-                    coinAmountLiveData.value = coin.CoinAmount
+                    coinAmountLiveData.value = coin.CoinAmount.toBigDecimal()
                 }
 
             }
@@ -44,7 +45,7 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
     }
 
     // this function for get details of coin that  i will buy
-    fun GetSelectedCoinDetails(coinName: String) {
+    fun getSelectedCoinDetails(coinName: String) {
 
 
         disposable.add(
@@ -56,6 +57,8 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
 
                     override fun onSuccess(t: List<BaseModelOneCryptoModel>) {
                         selectedCoinToTradeDetails.value = t
+
+
                     }
 
                     override fun onError(e: Throwable) {
@@ -65,6 +68,7 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
 
                 })
         )
+
     }
 
 
@@ -85,7 +89,7 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
                 val myCoinItem = myCoins(coinName, newAmount)
                 if (myMoneyTotal >= total) {
 
-                    myMoneyTotal = myMoneyTotal - total
+                    myMoneyTotal -= total
                     val myDollars = myCoins("USDT", myMoneyTotal)
 
                     Log.i("islem1", myMoneyTotal.toString())
@@ -118,12 +122,11 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
                 }
 
             } else {
-                val newAmount = addCoinAmount
-                val myCoinItem = myCoins(coinName, newAmount)
+                val myCoinItem = myCoins(coinName, addCoinAmount)
 
                 if (myMoneyTotal >= total) {
 
-                    myMoneyTotal = myMoneyTotal - total
+                    myMoneyTotal -= total
                     val myDollars = myCoins("USDT", myMoneyTotal)
 
                     Log.i("islem1", myMoneyTotal.toString())
@@ -181,7 +184,7 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
                 val newAmount = firstAmount - sellAmount
                 val myCoinItem = myCoins(coinName, newAmount)
 
-                myMoneyTotal = myMoneyTotal + total
+                myMoneyTotal += total
                 val myDollars = myCoins("USDT", myMoneyTotal)
 
                 if (coinName != "USDT") {
@@ -215,7 +218,7 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
     }
 
 
-    fun saveTradeToDatabase(
+    private fun saveTradeToDatabase(
         coinName: String,
         coinAmount: Double,
         coinPrice: Double,

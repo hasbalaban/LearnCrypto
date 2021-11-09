@@ -15,17 +15,18 @@ import com.finance.trade_learn.database.dataBaseEntities.myCoins
 import com.finance.trade_learn.database.dataBaseService
 import com.finance.trade_learn.models.create_new_model_for_tem_history.NewModelForItemHistory
 import kotlinx.coroutines.*
+import java.math.BigDecimal
 
 class viewModelMyWallet(val context: Context) : ViewModel() {
     val myCoinsDatabaseModel = MutableLiveData<List<myCoins>>()
     val myCoinsNewModel = MutableLiveData<ArrayList<NewModelForItemHistory>>()
     val myBaseModelOneCryptoModel = MutableLiveData<List<BaseModelOneCryptoModel>>()
     var disposable = CompositeDisposable()
-    var totalValue = MutableLiveData<Double>()
+    var totalValue = MutableLiveData<BigDecimal>()
     val databaseDao = dataBaseService.invoke(context).databaseDao()
 
     // this function fot get coins that i have
-    fun getMyCoinsDetails(constrait: String?=null) {
+    fun getMyCoinsDetails(constrait: String? = null) {
 
         CoroutineScope(Dispatchers.Main).launch {
             if (constrait == null) {
@@ -42,7 +43,7 @@ class viewModelMyWallet(val context: Context) : ViewModel() {
 
     }
 
-    fun checkDatabaseData(myCoinsDatabaseModel:MutableLiveData<List<myCoins>>) {
+    fun checkDatabaseData(myCoinsDatabaseModel: MutableLiveData<List<myCoins>>) {
 
         myCoinsDatabaseModel.let {
             var coinQuery = ""
@@ -86,7 +87,7 @@ class viewModelMyWallet(val context: Context) : ViewModel() {
 
     fun createNewModel() {
 
-        var total = 0.0
+        var total = BigDecimal.valueOf(0.0)
         val newModelForCoins = ArrayList<NewModelForItemHistory>()
 
         if (myCoinsDatabaseModel.value?.isNotEmpty() == true) {
@@ -100,9 +101,9 @@ class viewModelMyWallet(val context: Context) : ViewModel() {
                         if (i.symbol == z.CoinName) {
                             Log.i("symbolcompare", i.symbol + " " + z.CoinName)
                             val name = i.symbol
-                            val price = i.price
+                            val price = i.price.toBigDecimal()
 
-                            val amount = databaseDao.getOneCoin(name).CoinAmount
+                            val amount = databaseDao.getOneCoin(name).CoinAmount.toBigDecimal()
 
 
                             val image = i.logo_url
@@ -114,10 +115,8 @@ class viewModelMyWallet(val context: Context) : ViewModel() {
 
                             newModelForCoins.add(
                                 NewModelForItemHistory(
-                                    name,
-                                    (amount.toString() + "0000000").subSequence(0, 7).toString(),
-                                    ((amount * price).toString() + "0000000").subSequence(0, 7)
-                                        .toString(), image
+                                    name, amount.toString(),
+                                    (amount * price).toString(), image
                                 )
                             )
 

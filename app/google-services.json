@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "738790116580",
+    "project_id": "learntrade-151e9",
+    "storage_bucket": "learntrade-151e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738790116580:android:051902939aa717d530f0f1",
+        "android_client_info": {
+          "package_name": "com.finance.trade_learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738790116580-er83jac3rq2si1ejtbdem38g7q5c3gm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyc4cKu8vSb9wlPLcT4vDbu8EsqpW_w_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738790116580-er83jac3rq2si1ejtbdem38g7q5c3gm4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

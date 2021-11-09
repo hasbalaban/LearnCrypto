@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingTop="10dp"
-                android:text="Total Value ( $ )"
+                android:text="@string/TotalValue"
                 android:textAlignment="center"
                 android:textColor="@color/onClickSellBack"
                 android:textSize="30sp" />
@@ -51,8 +51,8 @@
             android:layout_weight="25"
             android:background="@drawable/edittext_wallet"
             android:drawableEnd="@drawable/search"
-            android:hint="Search"
-            android:paddingLeft="15dp"
+            android:hint="@string/Search"
+            android:paddingStart="15dp"
             android:paddingEnd="5dp"
             android:textColorHint="#0E0E0E"
             android:textSize="20sp" />
@@ -66,11 +66,11 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
             <TextView
                 android:paddingTop="5dp"
                 android:textSize="20sp"
-                android:text="Symbol"
+                android:text="@string/Symbol"
                 android:textColor="@color/onClickSellBack"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                 android:textColor="@color/onClickSellBack"
                 android:paddingTop="5dp"
                 android:textSize="20sp"
-                android:text="Amount"
+                android:text="@string/Amount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"/>
@@ -87,7 +87,9 @@
                 android:textColor="@color/onClickSellBack"
                 android:paddingTop="5dp"
                 android:textSize="20sp"
-                android:text="Value ($)"
+                android:text="@string/Value"
+                android:paddingStart="10dp"
+                android:paddingEnd="3dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"/>

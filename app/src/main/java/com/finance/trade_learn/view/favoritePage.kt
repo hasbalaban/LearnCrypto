@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.FragmentFavoritePageBinding
-import com.finance.trade_learn.databinding.FragmentHomeBinding
 
 
 class favoritePage : Fragment() {
@@ -25,7 +24,7 @@ class favoritePage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBindingFavorite = DataBindingUtil.inflate(
             inflater, R.layout.fragment_favorite_page,
             container, false

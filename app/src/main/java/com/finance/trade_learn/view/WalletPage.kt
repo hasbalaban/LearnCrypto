@@ -15,20 +15,19 @@ import com.finance.trade_learn.Adapters.adapter_for_my_wallet
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.FragmentWalletPageBinding
 import com.finance.trade_learn.models.create_new_model_for_tem_history.NewModelForItemHistory
-import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import kotlin.collections.ArrayList
 
-class walletPage : Fragment(), TextWatcher {
+class WalletPage : Fragment(), TextWatcher {
 
 
-    var viewVisible = true
-    lateinit var dataBindingWallet: FragmentWalletPageBinding
-    lateinit var adapter: adapter_for_my_wallet
-    lateinit var viewModelMyWallet: viewModelMyWallet
-    var disposable = CompositeDisposable()
+    private var viewVisible = true
+    private lateinit var dataBindingWallet: FragmentWalletPageBinding
+    private lateinit var adapter: adapter_for_my_wallet
+    private lateinit var viewModelMyWallet: viewModelMyWallet
+    //  private var disposable = CompositeDisposable()
 
-    var myCoinsList = ArrayList<NewModelForItemHistory>()
+    private var myCoinsList = ArrayList<NewModelForItemHistory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,7 @@ class walletPage : Fragment(), TextWatcher {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dataBindingWallet = DataBindingUtil.inflate(
             inflater, R.layout.fragment_wallet_page,
             container, false
@@ -57,7 +56,7 @@ class walletPage : Fragment(), TextWatcher {
     }
 
 
-    fun setup() {
+    private fun setup() {
         viewModelMyWallet = viewModelMyWallet(requireContext())
         viewModelMyWallet.getMyCoinsDetails()
 
@@ -69,17 +68,17 @@ class walletPage : Fragment(), TextWatcher {
 
     }
 
-    fun observerFun() {
+    private fun observerFun() {
         getMyWalletDetails()
 
 
     }
 
 
-    fun getMyWalletDetails() {
+    private fun getMyWalletDetails() {
 
         if (viewVisible) {
-            viewModelMyWallet.myCoinsNewModel.observe(viewLifecycleOwner, Observer {
+            viewModelMyWallet.myCoinsNewModel.observe(viewLifecycleOwner, {
                 myCoinsList.clear()
                 myCoinsList.addAll(it)
 
@@ -91,7 +90,7 @@ class walletPage : Fragment(), TextWatcher {
 
                     viewModelMyWallet.totalValue.observe(
                         viewLifecycleOwner,
-                        Observer { totalValue ->
+                        { totalValue ->
                             val text = "≈ "
                             dataBindingWallet.totalValue.setText(
                                 (text + (totalValue.toString() + "000000000000")).subSequence(
@@ -137,7 +136,7 @@ class walletPage : Fragment(), TextWatcher {
 
 
         } else {
-            adapter.updateRecyclerView(myCoinsList as ArrayList<NewModelForItemHistory>)
+            adapter.updateRecyclerView(myCoinsList)
 
 
         }

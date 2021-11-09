@@ -27,8 +27,8 @@
             android:id="@+id/coinImage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:padding="15dp"
+            android:layout_weight="1"
+            android:padding="5dp"
             android:src="@drawable/coin" />
 
         <TextView
@@ -36,17 +36,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:paddingTop="15dp"
+            android:paddingTop="20dp"
             android:text="@{data.CoinName}"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/coinAmount"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:paddingTop="20dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="1dp"
             android:text="@{data.CoinAmount}"
             android:textColor="@color/black"
             android:textSize="15sp" />

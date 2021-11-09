@@ -71,7 +71,7 @@
                 android:onClick="@{view-> clickLisener.ClickListener(view)}"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
-                android:text="Buy"
+                android:text="@string/textBuy"
                 android:textColor="@color/onClickBuyText"
                 android:textSize="25sp" />
 
@@ -88,7 +88,7 @@
                 android:onClick="@{view-> clickLisener.ClickListener(view)}"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
-                android:text="Sell"
+                android:text="@string/textSell"
                 android:textColor="@color/SellText"
                 android:textSize="25sp" />
 
@@ -113,7 +113,7 @@
                 android:background="@drawable/style_trade"
                 android:cursorVisible="false"
                 android:focusable="false"
-                android:hint="Price"
+                android:hint="@string/price"
                 android:textAlignment="center"
                 android:textColorHint="#474242" />
 
@@ -127,10 +127,11 @@
 
                 <ImageView
                     android:id="@+id/minus"
+                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:onClick="@{view-> clickLisener.ClickListener(view)}"
                     android:src="@drawable/minus" />
 
@@ -141,7 +142,7 @@
                     android:layout_toStartOf="@id/raise"
                     android:layout_toEndOf="@id/minus"
                     android:background="@drawable/none"
-                    android:hint="Amount"
+                    android:hint="@string/Amount"
                     android:inputType="number|numberDecimal"
                     android:nextFocusRight="@drawable/raise"
                     android:textAlignment="center"
@@ -153,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:padding="10dp"
                     android:layout_marginEnd="5dp"
                     android:onClick="@{view-> clickLisener.ClickListener(view)}"
                     android:src="@drawable/raise" />
@@ -167,7 +169,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/style_trade"
                 android:focusable="false"
-                android:hint="Total (USDT)"
+                android:hint="@string/totalUSDT"
                 android:inputType="number|numberDecimal"
                 android:textAlignment="center"
                 android:textColorHint="#474242" />
@@ -182,10 +184,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@id/avaibleAmount"
-                    android:padding="10dp"
-                    android:text="Avaible"
+                    android:paddingTop="10dp"
+                    android:text="@string/Avaible"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -194,8 +196,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toStartOf="@id/symbol"
-                    android:padding="10dp"
-                    android:text="1000"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="10dp"
+                    android:text="0"
                     android:textColor="@color/onClickSellBack"
                     android:textSize="16sp" />
 
@@ -237,7 +241,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/onClickBuyBack"
                 android:onClick="@{view-> clickLisener.ClickListener(view)}"
-                android:text=" Buy BTC"
+                android:text="@string/textBuy"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 

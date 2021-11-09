@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.finance.trade_learn.database.dataBaseEntities.myCoins
 import com.finance.trade_learn.database.dataBaseEntities.SaveCoin
 
-@Database(entities = arrayOf(myCoins::class, SaveCoin::class), exportSchema = false, version = 3)
+@Database(entities = arrayOf(myCoins::class, SaveCoin::class), exportSchema = false, version = 1)
 abstract class dataBaseService : RoomDatabase() {
 
     abstract fun databaseDao(): databaseDao

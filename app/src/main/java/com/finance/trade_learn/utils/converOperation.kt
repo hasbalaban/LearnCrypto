@@ -24,7 +24,7 @@ class converOperation(val t: List<BaseModelCrypto>,
 
         for (i in t) {
             val last = ListOfCryptoforCompare.value?.get(position)?.CoinPrice?.toDouble()
-            val new = i.price
+            val new = i.price.toDouble()
 
             //control for state of change
             if (last != null) {

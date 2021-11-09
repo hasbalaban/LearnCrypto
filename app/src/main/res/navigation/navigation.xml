@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/walletPage"
-        android:name="com.finance.trade_learn.view.walletPage"
+        android:name="com.finance.trade_learn.view.WalletPage"
         android:label="walletPage" />
     <fragment
         android:id="@+id/marketPage"

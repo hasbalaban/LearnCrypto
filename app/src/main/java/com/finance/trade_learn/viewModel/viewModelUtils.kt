@@ -14,16 +14,21 @@ import com.finance.trade_learn.database.dataBaseEntities.*
 class viewModelUtils() : ViewModel() {
 
 
-
-    fun isOneEntering(context: Context) {
+    fun isOneEntering(context: Context): Boolean {
+        var state = false
         val sharedManager = sharedPreferencesManager(context)
         val isFirst = sharedManager.getSharedPreferencesBoolen("isfirst")
-        Log.i( "isFirst", isFirst.toString())
+        Log.i("isFirst", isFirst.toString())
         if (isFirst) {
             sharedManager.addSharedPreferencesBoolen("isfirst", false)
             addDollarsForOneTime(context)
+            state = true
 
-        }
+        } else
+            state = false
+
+
+        return state
 
 
     }
@@ -37,14 +42,11 @@ class viewModelUtils() : ViewModel() {
 
     private fun addOneTimeDollars(dollars: Double, context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
-            val databaseDao=dataBaseService.invoke(context).databaseDao()
-            val myCoins=myCoins("USDT",dollars)
+            val databaseDao = dataBaseService.invoke(context).databaseDao()
+            val myCoins = myCoins("USDT", dollars)
             databaseDao.addCoin(myCoins)
         }
     }
-
-
-
 
 
 }
