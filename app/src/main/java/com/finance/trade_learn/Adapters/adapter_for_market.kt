@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.finance.trade_learn.clickListener.MarketClickListener
@@ -37,7 +38,7 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
 
         when (list[position].raise) {
 
-            enumPriceChange.pozitive -> {
+            enumPriceChange.pozitive ->{
                 holder.view.coinPrice.setTextColor(Color.parseColor("#2ebd85"))
             }
             enumPriceChange.negative -> {
@@ -48,14 +49,24 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
             }
         }
 
+
         when (list[position].CoinChangePercente.subSequence(0, 1)) {
 
-            "-" -> holder.view.coinPercent.setTextColor(Color.parseColor("#F6465D"))
-            "+" -> holder.view.coinPercent.setTextColor(Color.parseColor("#2ebd85"))
-            else -> holder.view.coinPrice.setTextColor(Color.parseColor("#000000"))
-
+            "-" -> {
+                holder.view.coinPercent.setTextColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setBackgroundColor(Color.parseColor("#F6465D"))
+            }
+            "+" -> {
+                holder.view.coinPercent.setTextColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setBackgroundColor(Color.parseColor("#2ebd85"))
+            }
+            else -> {
+                holder.view.coinPercent.setBackgroundColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setTextColor(Color.parseColor("#000000"))
+            }
 
         }
+
 
         holder.view.LayoutCoin.setOnClickListener {
             val coinName = SolveCoinName(list[position].CoinName)
@@ -74,7 +85,7 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
         return list.size
     }
 
-    fun animationSet(position: Int, layoutCoin: RelativeLayout) {
+    fun animationSet(position: Int, layoutCoin: ConstraintLayout) {
         if (position < 10 && firstSet) {
             val animation = AnimationUtils.loadAnimation(
                 context,R.anim.animation_for_item_of_recyclers )

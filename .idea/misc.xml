@@ -3,17 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/border_radios.xml" value="0.2203125" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/coin.xml" value="0.1" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20625" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.20625" />
+        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/percent_raise.xml" value="0.2203125" />
+        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/raise.xml" value="0.1046875" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/search.xml" value="0.2203125" />
+        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/drawable/search_edittext.xml" value="0.2203125" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/activity_search.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_current_trade.xml" value="0.22" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_favorite_page.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_history_of_trade.xml" value="0.33" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_market_page.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_market_page.xml" value="0.25" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_setting_page.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_trade_page.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/hn73/AndroidStudioProjects/trade_learn/app/src/main/res/layout/fragment_wallet_page.xml" value="0.20416666666666666" />

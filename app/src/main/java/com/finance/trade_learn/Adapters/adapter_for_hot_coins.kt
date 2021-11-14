@@ -2,6 +2,7 @@ package com.finance.trade_learn.Adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -14,6 +15,7 @@ import com.finance.trade_learn.databinding.ItemCoinOfTodayBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
 import com.finance.trade_learn.utils.sharedPreferencesManager
+import org.xmlpull.v1.XmlPullParser
 
 class adapter_for_hot_coins(val context: Context, val list: ArrayList<CoinsHome>) :
     RecyclerView.Adapter<adapter_for_hot_coins.viewHolder>() {
@@ -38,16 +40,25 @@ class adapter_for_hot_coins(val context: Context, val list: ArrayList<CoinsHome>
                 holder.view.coinPrice.setTextColor(Color.parseColor("#F6465D"))
             }
             enumPriceChange.notr -> {
-                holder.view.coinPrice.setTextColor(Color.parseColor("#000000"))
+               holder.view.coinPrice.setTextColor(Color.parseColor("#000000"))
             }
         }
 
 
         when (list[position].CoinChangePercente.subSequence(0, 1)) {
 
-            "-" -> holder.view.coinPercent.setTextColor(Color.parseColor("#F6465D"))
-            "+" -> holder.view.coinPercent.setTextColor(Color.parseColor("#2ebd85"))
-            else -> holder.view.coinPrice.setTextColor(Color.parseColor("#000000"))
+            "-" -> {
+                holder.view.coinPercent.setTextColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setBackgroundColor(Color.parseColor("#F6465D"))
+            }
+            "+" -> {
+                holder.view.coinPercent.setTextColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setBackgroundColor(Color.parseColor("#2ebd85"))
+            }
+            else -> {
+                holder.view.coinPrice.setBackgroundColor(Color.parseColor("#ffffff"))
+                holder.view.coinPercent.setTextColor(Color.parseColor("#000000"))
+            }
 
 
         }
@@ -91,5 +102,7 @@ class adapter_for_hot_coins(val context: Context, val list: ArrayList<CoinsHome>
         notifyDataSetChanged()
 
     }
+
+
 
 }

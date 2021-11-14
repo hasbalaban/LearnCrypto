@@ -45,20 +45,28 @@ class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsH
                 holder.view.populerCoinPrice.setTextColor(Color.parseColor("#000000"))
             }
         }
+
+
         when (list[position].CoinChangePercente.subSequence(0, 1)) {
 
-            "-" -> holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#F6465D"))
-            "+" -> holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#2ebd85"))
-            else -> holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#000000"))
-
+            "-" -> {
+                holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#F6465D"))
+            }
+            "+" -> {
+                holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#2ebd85"))
+            }
+            else -> {
+                holder.view.populerCoinChangePercent.setTextColor(Color.parseColor("#000000"))
+            }
 
         }
+
 
         holder.view.populerCoin = list[position]
 
         //animations
         val animation = AnimationUtils.loadAnimation(
-            context, R.anim.animation_for_item_of_recyclers
+            context, R.anim.animation_for_populer_coins
         )
         holder.view.layoutPopulerCoins.animation = animation
 

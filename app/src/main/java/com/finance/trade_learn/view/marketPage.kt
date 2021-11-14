@@ -45,7 +45,7 @@ class marketPage : Fragment() {
     private fun providers() {
 
         viewModelMarket = ViewModelProvider(requireActivity())[ViewModelMarket::class.java]
-        update()
+       // update()
 
     }
 

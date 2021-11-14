@@ -10,47 +10,46 @@
         <LinearLayout
             android:id="@+id/topView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_alignParentStart="true"
-            android:background="#ECEAEA"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/searchedCoin"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:focusable="false"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="2dp"
-                android:layout_weight="5"
-                android:textColorHint="@color/white"
+                android:layout_marginTop="4dp"
+                android:layout_weight="21"
                 android:background="@drawable/search_edittext"
                 android:drawableStart="@drawable/search"
+                android:focusable="false"
                 android:hint="@string/hintSearch"
-                android:paddingStart="5dp" />
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="5"
+                android:layout_marginTop="1dp"
+                android:layout_weight="15"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:paddingLeft="15dp"
+                    android:layout_weight="4"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:text="@string/name"
                     android:textSize="15sp" />
+
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:text="@string/lastPrice"
                     android:textSize="15sp" />
 
@@ -58,24 +57,33 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="@string/change24"
                     android:textSize="15sp" />
 
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDCDC"
+            android:layout_below="@id/topView" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/topView">
+            android:layout_below="@id/view1">
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/RecyclerViewMarket"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="3dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerViewMarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:paddingBottom="5dp" />
 
 
         </ScrollView>

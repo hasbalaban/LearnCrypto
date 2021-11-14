@@ -24,6 +24,12 @@
                 android:id="@+id/populerCoinName"
                 android:text="@{populerCoin.coinName}"
                 android:textSize="13sp"
+                android:background="@drawable/border_radios"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -31,6 +37,7 @@
                 android:id="@+id/populerCoinChangePercent"
                 android:text="@{populerCoin.coinChangePercente}"
                 android:textSize="12sp"
+                android:padding="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -38,6 +45,7 @@
         <TextView
             android:layout_marginTop="8dp"
             android:textSize="15sp"
+            android:padding="3dp"
             android:id="@+id/populerCoinPrice"
             android:text="@{populerCoin.coinPrice}"
             android:layout_width="wrap_content"

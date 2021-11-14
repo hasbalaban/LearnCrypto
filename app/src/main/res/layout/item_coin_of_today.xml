@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,13 +9,13 @@
             type="com.finance.trade_learn.models.modelsConvector.CoinsHome" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/LayoutCoin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="3dp"
-         android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+         android:paddingTop="1dp"
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/coinName"
@@ -22,36 +23,83 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
-            android:padding="5dp"
+            android:padding="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="@{coin.coinName}"
-            android:textSize="15sp" />
+
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/coinPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:padding="5dp"
+            android:padding="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
             android:text="@{coin.coinPrice}"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/coinPercent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:padding="5dp"
-            android:text="@{coin.coinChangePercente}"
-            android:textSize="15sp" />
+
 
         <View
+            android:id="@+id/view1"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/coinPrice"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#F1EDED" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/layout_coin_Percent"
+            android:layout_marginStart="30dp"
+            app:layout_constraintStart_toStartOf="@id/view1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/coinPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/white"
+                android:text="@{coin.coinChangePercente}"
+                android:textSize="17sp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/coinPercent"
             android:layout_marginTop="5dp"
-            android:background="#AAA8A8" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#F1EDED" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

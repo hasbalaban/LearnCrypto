@@ -78,8 +78,10 @@ class SearchActivity : AppCompatActivity(), TextWatcher {
             job.add(newJob)
         }
 
-
+        val edittextCursorPosition =  dataBindingSearch.searchCoin.length()
+        dataBindingSearch.searchCoin.setSelection(edittextCursorPosition)
     }
+
 
 
 }
