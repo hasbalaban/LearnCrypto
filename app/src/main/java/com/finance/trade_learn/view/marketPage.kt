@@ -1,5 +1,6 @@
 package com.finance.trade_learn.view
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,66 +11,89 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.finance.trade_learn.Adapters.adapter_for_market
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.FragmentMarketPageBinding
 import com.finance.trade_learn.utils.IntentNavigate
-import com.finance.trade_learn.viewModel.viewModelMarket
+import com.finance.trade_learn.viewModel.ViewModelMarket
 import kotlinx.coroutines.*
 import java.lang.Runnable
 
 
-var firstSet=true
+var firstSet = true
+
 class marketPage : Fragment() {
 
+
+    private lateinit var viewModelMarket: ViewModelMarket
     lateinit var dataBindingMarket: FragmentMarketPageBinding
     var viewVisible = true
-    lateinit var Job: Job
+    private var job: Job? = null
 
-    lateinit var viewModelMarket: viewModelMarket
     var runnable = Runnable { }
     var handler = Handler(Looper.getMainLooper())
     private lateinit var adapter: adapter_for_market
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
 
+        providers()
+        super.onAttach(context)
+    }
+
+    private fun providers() {
+
+        viewModelMarket = ViewModelProvider(requireActivity())[ViewModelMarket::class.java]
+        update()
 
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         dataBindingMarket = DataBindingUtil.inflate(
             inflater, R.layout.fragment_market_page,
             container, false
         )
 
-        viewModelMarket = viewModelMarket()
         return dataBindingMarket.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = adapter_for_market(requireContext(), arrayListOf())
 
         clickToSearch()
-        firstSet=true
+        firstSet = true
 
+        setAdapter()
+        isIntializeViewModel()
 
-
-        dataBindingMarket.RecyclerViewMarket.layoutManager =
-            LinearLayoutManager(requireContext())
-        dataBindingMarket.RecyclerViewMarket.adapter = adapter
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun setAdapter() {
+        adapter = adapter_for_market(requireContext(), arrayListOf())
+        dataBindingMarket.RecyclerViewMarket.layoutManager =
+            LinearLayoutManager(requireContext())
+        dataBindingMarket.RecyclerViewMarket.adapter = adapter
+    }
 
-    fun getDataHot() {
+    private fun isIntializeViewModel() {
 
+        val status = viewModelMarket.isInitiaize
+        if (status == true) {
+
+            viewModelMarket.ListOfCrypto.observe(viewLifecycleOwner, Observer {
+
+                adapter.UpdateMarket(it)
+            })
+        }
+
+    }
+
+    fun getData() {
 
         if (viewVisible) {
             //observer state of list of coins
@@ -83,12 +107,12 @@ class marketPage : Fragment() {
         }
     }
 
-    fun Update() {
-        Job = CoroutineScope(Dispatchers.Main + Job()).launch {
+    fun update() {
+        job = CoroutineScope(Dispatchers.Main + Job()).launch {
             runnable = object : Runnable {
                 override fun run() {
                     viewModelMarket.runGetAllCryptoFromApi()
-                    getDataHot()
+                    getData()
                     handler.postDelayed(runnable, 6000)
                 }
             }
@@ -99,16 +123,16 @@ class marketPage : Fragment() {
 
     override fun onPause() {
         viewVisible = false
-        Job.cancel()
+        job?.cancel()
         Log.i("onPause", "onPause")
         handler.removeCallbacks(runnable)
         super.onPause()
     }
 
     override fun onResume() {
+
+        update()
         viewVisible = true
-   //     getDataHot()
-        Update()
         super.onResume()
     }
 
@@ -116,7 +140,7 @@ class marketPage : Fragment() {
         dataBindingMarket.searchedCoin.setOnClickListener {
 
 
-            IntentNavigate().navigate(requireContext(),SearchActivity::class.java)
+            IntentNavigate().navigate(requireContext(), SearchActivity::class.java)
 
 
         }

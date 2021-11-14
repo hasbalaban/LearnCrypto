@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.finance.trade_learn.clickListener.ListenerInterface
 import com.finance.trade_learn.R
@@ -70,6 +72,7 @@ class currentTrade : Fragment(), TextWatcher {
 
         toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
 
+        // viewModelCurrentTrade = ViewModelProvider(this).get(viewModelCurrentTrade::class.java)
         viewModelCurrentTrade = viewModelCurrentTrade(requireContext())
         setInitialize()
         dataBindingCurrentTrade.coinName.setText(coinName + " / USDT")
@@ -408,10 +411,12 @@ class currentTrade : Fragment(), TextWatcher {
 
             operationState = when (tradeState) {
                 tradeEnum.Buy -> {
-                    avaibleAmount.toDouble() >= total.toDouble()
+                    ((avaibleAmount.toDouble() >= total.toDouble()) && (avaibleAmount.toDouble() > 0.0) && (total.toDouble() > 0.0) && (amount.toDouble() > 0.0))
                 }
                 tradeEnum.Sell -> {
-                    avaibleAmount.toDouble() >= amount.toDouble()
+
+                    ((avaibleAmount.toDouble() >= amount.toDouble()) && (avaibleAmount.toDouble() > 0.0) && (total.toDouble() > 0.0) && (amount.toDouble() > 0.0))
+
                 }
 
             }

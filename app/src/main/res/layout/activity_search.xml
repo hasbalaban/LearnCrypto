@@ -22,6 +22,7 @@
             android:layout_weight="1"
             android:background="@drawable/search_edittext"
             android:drawableStart="@drawable/search"
+            android:textColorHint="@color/white"
             android:hint="@string/hintSearch"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"/>

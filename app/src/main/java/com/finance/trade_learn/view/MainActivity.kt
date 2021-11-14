@@ -1,33 +1,33 @@
 package com.finance.trade_learn.view
 
 
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.ActivityMainBinding
 import com.finance.trade_learn.utils.testWorkManager
+import com.finance.trade_learn.viewModel.ViewModelMarket
 import com.finance.trade_learn.viewModel.viewModelUtils
 
 
 var isCameFromActivity = false
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var controller: NavController
     private lateinit var dataBindingMain: ActivityMainBinding
     private lateinit var viewModelUtils: viewModelUtils
+    private lateinit var viewModelMarket: ViewModelMarket
 
     // val disposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
+        providers()
         super.onCreate(savedInstanceState)
         dataBindingMain = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -40,7 +40,13 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-    // to navigate acording click in fragment
+   private fun providers() {
+        viewModelMarket = ViewModelProvider(this).get(ViewModelMarket::class.java)
+
+    }
+
+
+    // to navigate according click in fragment
     private fun bottomNavigationItemClickListener() {
 
         controller = findNavController(R.id.fragmentContainerView)
@@ -71,7 +77,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onRestart() {
 
-        Log.i("destttt", controller.currentDestination?.label.toString())
+        Log.i("destiniation", controller.currentDestination?.label.toString())
         if (isCameFromActivity) {
             isCameFromActivity = false
 

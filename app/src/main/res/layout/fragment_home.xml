@@ -13,14 +13,14 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:background="#F6F3F3"
-            android:layout_height="40dp">
+            android:layout_height="35dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
                     android:layout_alignParentStart="true"
                     android:layout_width="40dp"
                     android:padding="2dp"
@@ -30,12 +30,11 @@
 
                 <ImageView
                     android:id="@+id/searchCoin"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="50dp"
-                    android:layout_marginTop="2dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/search"
-                    />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/search" />
 
             </RelativeLayout>
 
@@ -44,14 +43,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="70">
+            android:layout_weight="50">
 
             <ImageView
                 android:id="@+id/HomeView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:scaleType="fitXY"
+                android:layout_margin="3dp"
+                android:scaleType="center"
                 android:src="@drawable/trade_home_image" />
         </LinearLayout>
 
@@ -90,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="220">
+            android:layout_weight="250">
 
             <ScrollView
                 android:layout_width="match_parent"

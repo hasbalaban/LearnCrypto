@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kripto Öğren</string>
+    <string name="app_name">Kripto Demo | Ücretsiz Sanal Para ile Kripto Al-Sat</string>
     <string name="hello_blank_fragment">merhaba boş fragment</string>
     <string name="usdt"> / USDT</string>
 

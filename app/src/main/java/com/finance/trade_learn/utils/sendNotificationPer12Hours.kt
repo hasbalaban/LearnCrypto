@@ -53,7 +53,7 @@ class SendNotificationPer12Hours(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.i("version is equals or bigger", Build.VERSION.SDK_INT.toString())
 
-            val priority = NotificationManager.IMPORTANCE_DEFAULT
+            val priority = NotificationManager.IMPORTANCE_HIGH
             val NotifManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             val channel = NotificationChannel(Channel_Id, Channel_Name, priority)
 

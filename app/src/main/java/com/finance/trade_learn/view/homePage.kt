@@ -1,5 +1,6 @@
 package com.finance.trade_learn.view
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,13 +28,25 @@ import kotlinx.coroutines.runBlocking
 class home : Fragment() {
 
     lateinit var adapterForHotList: adapter_for_hot_coins
-    var viewVisible = true
+    lateinit var adapterForPopulerList: adapter_for_populer_coins
+    var viewVisible = false
     lateinit var dataBindingHome: FragmentHomeBinding
-    lateinit var viewModelHomePage: viewModeHomePage
+    lateinit var viewModelHome: viewModeHomePage
     var runnable = Runnable { }
     var handler = Handler(Looper.getMainLooper())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onAttach(context: Context) {
+        providers()
+        super.onAttach(context)
+    }
+
+    private fun providers() {
+
+        viewModelHome = ViewModelProvider(requireActivity())[viewModeHomePage::class.java]
 
     }
 
@@ -44,7 +58,6 @@ class home : Fragment() {
             inflater, R.layout.fragment_home,
             container, false
         )
-        viewModelHomePage = viewModeHomePage()
 
 
         return dataBindingHome.root
@@ -57,64 +70,71 @@ class home : Fragment() {
         dataBindingHome.RecyclerViewCoinsOfToday.layoutManager =
             LinearLayoutManager(requireContext())
         dataBindingHome.RecyclerViewCoinsOfToday.adapter = adapterForHotList
+
+
+        adapterForPopulerList = adapter_for_populer_coins(requireContext(), arrayListOf())
+        dataBindingHome.RecyclerViewPopulerCoins.layoutManager =
+            GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
+        dataBindingHome.RecyclerViewPopulerCoins.adapter = adapterForPopulerList
+
+
         clickToSearch()
         startAnimation()
+        isViewModelIntialize()
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun isViewModelIntialize() {
+        val state = viewModelHome.isInitialize
+        Log.i("state", state.toString())
+
+        if (state) {
+            viewModelHome.ListOfCrypto.observe(viewLifecycleOwner, Observer {
+
+                adapterForHotList.updateData(it)
+            })
+            viewModelHome.ListOfCryptoForPopuler.observe(viewLifecycleOwner, Observer {
+
+                adapterForPopulerList.updatePopuler(it)
+            })
+        }
+    }
 
 
     //animation to start
-    fun startAnimation(){
-        val animation = AnimationUtils.loadAnimation(requireContext(),R.anim.animation_for_home_view)
-        val imageView=dataBindingHome.HomeView
-        imageView.animation=animation
+    fun startAnimation() {
+        val animation =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.animation_for_home_view)
+        val imageView = dataBindingHome.HomeView
+        imageView.animation = animation
     }
 
     // We Check State of Loading if loading is succesed we Will initialize adapter here
     // then we will set on recycler view
 
-    fun GetData(list: List<CoinsHome>) {
 
-
-        val adapter = adapter_for_populer_coins(requireContext(), list)
-        dataBindingHome.RecyclerViewPopulerCoins.layoutManager =
-            GridLayoutManager(requireContext(), list.size, RecyclerView.VERTICAL, false)
-        dataBindingHome.RecyclerViewPopulerCoins.adapter = adapter
-
-
-    }
-
-    fun getDataHot() {
-        viewModelHomePage.runGetAllCryptoFromApi()
+    fun getData() {
+        viewModelHome.runGetAllCryptoFromApi()
 
 
         if (viewVisible) {
-            Log.i("ooooooo", "7")
             //observer state of list of coins
-            viewModelHomePage.state.observe(viewLifecycleOwner, Observer {
+            viewModelHome.state.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     if (viewVisible) {
-                        viewModelHomePage.ListOfCrypto.observe(
+                        viewModelHome.ListOfCrypto.observe(
                             viewLifecycleOwner,
                             Observer { list ->
 
                                 adapterForHotList.updateData(list)
 
-                                var popList = arrayListOf<CoinsHome>()
-                                for (i in list) {
-                                    if (i.CoinName.subSequence(
-                                            0,
-                                            3
-                                        ) == "BTC" || i.CoinName.subSequence(
-                                            0, 3
-                                        ) == "BNB" || i.CoinName.subSequence(0, 3) == "ETH"
-                                    ) {
-                                        popList.add(i)
-                                    }
-                                }
-                                GetData(popList)
 
+                            })
+
+                        viewModelHome.ListOfCryptoForPopuler.observe(
+                            viewLifecycleOwner,
+                            Observer { list ->
+                                adapterForPopulerList.updatePopuler(list)
 
                             })
                     }
@@ -126,17 +146,15 @@ class home : Fragment() {
         }
     }
 
-    fun Update() {
+    private fun update() {
 
         runnable = object : Runnable {
             override fun run() {
 
-
                 runBlocking {
-                    getDataHot()
+                    getData()
 
                 }
-
 
                 handler.postDelayed(runnable, 5000)
 
@@ -149,7 +167,7 @@ class home : Fragment() {
     }
 
     override fun onPause() {
-        viewVisible = true
+        viewVisible = false
         handler.removeCallbacks(runnable)
         super.onPause()
     }
@@ -157,7 +175,7 @@ class home : Fragment() {
     override fun onResume() {
 
         viewVisible = true
-        Update()
+        update()
         super.onResume()
     }
 

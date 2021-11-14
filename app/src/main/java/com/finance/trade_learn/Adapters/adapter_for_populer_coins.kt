@@ -12,7 +12,7 @@ import com.finance.trade_learn.databinding.ItemOfPopulerCoinsBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
 
-class adapter_for_populer_coins(val context: Context, val list: List<CoinsHome>) :
+class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsHome>) :
     RecyclerView.Adapter<adapter_for_populer_coins.ViewHolder>() {
 
     class ViewHolder(val view: ItemOfPopulerCoinsBinding) : RecyclerView.ViewHolder(view.root)
@@ -69,5 +69,12 @@ class adapter_for_populer_coins(val context: Context, val list: List<CoinsHome>)
         return list.size
     }
 
+
+    fun updatePopuler(newList: List<CoinsHome>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+
+    }
 
 }
