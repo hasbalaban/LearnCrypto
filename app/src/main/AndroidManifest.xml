@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnTrade">
         <activity
+            android:label="@string/page_name"
             android:parentActivityName=".view.MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan|adjustNothing"
             android:name=".view.SearchActivity"

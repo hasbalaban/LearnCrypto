@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Crypto Demo | Trade Crypto Demo Account </string>
+    <string name="app_name">Crypto Demo Free Buy-Sell</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="usdt"> / USDT</string>
@@ -32,6 +32,7 @@
     <string name="succes">Progress Succesed</string>
     <string name="fail">Progress Failed</string>
     <string name="addZeros">0.000000</string>
+    <string name="page_name">Search Coin</string>
 
 
 </resources>

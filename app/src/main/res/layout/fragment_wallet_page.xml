@@ -11,7 +11,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="70"
+            android:layout_weight="50"
             android:orientation="vertical">
 
             <TextView
@@ -28,9 +28,10 @@
                 android:id="@+id/totalValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
                 android:textColor="@color/pozitive"
-                android:textSize="27sp" />
+                android:textSize="25sp" />
 
 
         </LinearLayout>
@@ -64,6 +65,11 @@
             android:orientation="horizontal">
 
             <TextView
+                android:paddingTop="5dp"
+                android:paddingStart="2dp"
+                android:textSize="20sp"
+                android:text="Logo"
+                android:textColor="@color/onClickSellBack"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
@@ -94,6 +100,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"/>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCD7D7"
+            android:layout_weight="1"/>
 
         <ScrollView
             android:layout_width="match_parent"

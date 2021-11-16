@@ -24,6 +24,7 @@ class SearchActivity : AppCompatActivity(), TextWatcher {
         setTheme(R.style.thema_search)
         super.onCreate(savedInstanceState)
         dataBindingSearch = DataBindingUtil.setContentView(this, R.layout.activity_search)
+       // setTitle(R.string.page_name)
 
         setup()
     }

@@ -14,7 +14,7 @@
 
         android:id="@+id/Relayout_Wallet"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="60dp">
 
 
 
@@ -28,8 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="5dp"
-            android:src="@drawable/coin" />
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"/>
 
         <TextView
             android:id="@+id/coinName"

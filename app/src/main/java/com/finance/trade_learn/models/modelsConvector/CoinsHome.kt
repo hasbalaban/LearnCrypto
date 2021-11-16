@@ -9,6 +9,7 @@ data class CoinsHome(
     val CoinName: String,
     val CoinPrice: String,
     val CoinChangePercente: String,
+    val CoinImage: String,
     val raise: enumPriceChange
 
 

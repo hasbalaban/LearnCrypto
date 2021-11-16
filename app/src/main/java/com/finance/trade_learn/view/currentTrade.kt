@@ -14,15 +14,19 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.compose.ui.geometry.RoundRect
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.finance.trade_learn.clickListener.ListenerInterface
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.FragmentCurrentTradeBinding
 import com.finance.trade_learn.enums.tradeEnum
 import com.finance.trade_learn.models.on_crypto_trade.BaseModelOneCryptoModel
+import com.finance.trade_learn.utils.setImageSvg
 import com.finance.trade_learn.utils.sharedPreferencesManager
 import com.finance.trade_learn.viewModel.viewModelCurrentTrade
 
@@ -76,6 +80,8 @@ class currentTrade : Fragment(), TextWatcher {
         viewModelCurrentTrade = viewModelCurrentTrade(requireContext())
         setInitialize()
         dataBindingCurrentTrade.coinName.setText(coinName + " / USDT")
+
+
         dataBindingCurrentTrade.clickLisener = clickListenerInitialize
         dataBindingCurrentTrade.coinAmount.addTextChangedListener(this)
         dataBindingCurrentTrade.coinPrice.addTextChangedListener(this)
@@ -198,6 +204,7 @@ class currentTrade : Fragment(), TextWatcher {
             val coinPrice = coin.price
             dataBindingCurrentTrade.coinPrice.setText(coinPrice)
 
+            dataBindingCurrentTrade.coinLogo.setImageSvg(coin.logo_url)
 
             var coinPercentChange: String = coin.d1.price_change_pct
             coinPercentChange =
@@ -567,6 +574,7 @@ class currentTrade : Fragment(), TextWatcher {
             dataBindingCurrentTrade.Total.setText("")
         }
     }
+
 
 
 }

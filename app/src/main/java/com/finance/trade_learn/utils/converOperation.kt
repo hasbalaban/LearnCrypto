@@ -40,6 +40,7 @@ class converOperation(val t: List<BaseModelCrypto>,
                 }
             }
 
+            val coinImage=i.logo_url
             val coinName = i.symbol.uppercase(Locale.getDefault()) + " / USD"
             val coinPrice = (i.price.toString()+"00000000").subSequence(0, 8).toString()
             val percenteChange = percenteChange(i.day1.price_change_pct)
@@ -49,7 +50,7 @@ class converOperation(val t: List<BaseModelCrypto>,
             val coinPercenteChange = percenteChange.raise + (percenteChange.percentChange
                 .toString()+"0000").subSequence(0, 4).toString() + "%"
 
-            val item = CoinsHome(coinName, coinPrice, coinPercenteChange, change)
+            val item = CoinsHome(coinName, coinPrice, coinPercenteChange,coinImage, change)
 
             val coinPercenteChangeCompare = percenteChange.percentChange * 100.0
             val coinPriceCompare = i.price.toString()
@@ -58,6 +59,7 @@ class converOperation(val t: List<BaseModelCrypto>,
                     coinName,
                     coinPriceCompare,
                     coinPercenteChangeCompare.toString(),
+                    coinImage,
                     enumPriceChange.notr
                 )
 

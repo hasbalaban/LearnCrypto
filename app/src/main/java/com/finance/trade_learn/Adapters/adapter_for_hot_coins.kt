@@ -14,6 +14,7 @@ import com.finance.trade_learn.clickListener.MarketClickListener
 import com.finance.trade_learn.databinding.ItemCoinOfTodayBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
+import com.finance.trade_learn.utils.setImageSvg
 import com.finance.trade_learn.utils.sharedPreferencesManager
 import org.xmlpull.v1.XmlPullParser
 
@@ -72,6 +73,7 @@ class adapter_for_hot_coins(val context: Context, val list: ArrayList<CoinsHome>
                 .addSharedPreferencesString("coinName",coinName)
             HomePageClickListener().ClickListener(it)
         }
+        holder.view.coinImage.setImageSvg(list[position].CoinImage)
     }
 
     override fun getItemCount(): Int {

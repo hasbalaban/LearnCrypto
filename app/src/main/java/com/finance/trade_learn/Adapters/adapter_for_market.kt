@@ -15,6 +15,7 @@ import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.ItemCoinOfTodayBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
+import com.finance.trade_learn.utils.setImageSvg
 import com.finance.trade_learn.utils.sharedPreferencesManager
 import com.finance.trade_learn.view.firstSet
 
@@ -76,8 +77,9 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
 
         }
         holder.view.coin = list[position]
-
         animationSet(position, holder.view.LayoutCoin)
+        holder.view.coinImage.setImageSvg(list[position].CoinImage)
+
 
     }
 
