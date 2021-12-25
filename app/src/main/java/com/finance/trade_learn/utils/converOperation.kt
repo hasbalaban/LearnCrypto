@@ -43,29 +43,34 @@ class converOperation(val t: List<BaseModelCrypto>,
             val coinImage=i.logo_url
             val coinName = i.symbol.uppercase(Locale.getDefault()) + " / USD"
             val coinPrice = (i.price.toString()+"00000000").subSequence(0, 8).toString()
-            val percenteChange = percenteChange(i.day1.price_change_pct)
-
-
+            var percenteChange:Percent?=null
+            if (i.day1!!.price_change_pct==null){
+                percenteChange = Percent(0.0,"+","%")
+            }
+            else {
+                percenteChange = percenteChange(i.day1.price_change_pct!!)
+            }
             //set lenght of percent as char
-            val coinPercenteChange = percenteChange.raise + (percenteChange.percentChange
-                .toString()+"0000").subSequence(0, 4).toString() + "%"
 
-            val item = CoinsHome(coinName, coinPrice, coinPercenteChange,coinImage, change)
+                val coinPercenteChange = percenteChange!!.raise + (percenteChange.percentChange
+                    .toString() + "0000").subSequence(0, 4).toString() + "%"
 
-            val coinPercenteChangeCompare = percenteChange.percentChange * 100.0
-            val coinPriceCompare = i.price.toString()
-            val itemCompare =
-                CoinsHome(
-                    coinName,
-                    coinPriceCompare,
-                    coinPercenteChangeCompare.toString(),
-                    coinImage,
-                    enumPriceChange.notr
-                )
+                val item = CoinsHome(coinName, coinPrice, coinPercenteChange, coinImage, change)
 
-            ListItemForCompare.add(itemCompare)
-            ListItem.add(item)
-            position++
+                val coinPercenteChangeCompare = percenteChange.percentChange * 100.0
+                val coinPriceCompare = i.price.toString()
+                val itemCompare =
+                    CoinsHome(
+                        coinName,
+                        coinPriceCompare,
+                        coinPercenteChangeCompare.toString(),
+                        coinImage,
+                        enumPriceChange.notr
+                    )
+
+                ListItemForCompare.add(itemCompare)
+                ListItem.add(item)
+                position++
         }
 
         ListOfCrypto.value = ListItem
@@ -87,7 +92,7 @@ class converOperation(val t: List<BaseModelCrypto>,
                 )
             else -> pct =
                 Percent(
-                    coinPrice.subSequence(1, coinPrice.length).toString()
+                    coinPrice.subSequence(0, coinPrice.length).toString()
                         .toDouble() * 100, "+"
                 )
 

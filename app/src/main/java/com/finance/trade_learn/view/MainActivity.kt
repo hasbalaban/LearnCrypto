@@ -15,6 +15,11 @@ import com.finance.trade_learn.databinding.ActivityMainBinding
 import com.finance.trade_learn.utils.testWorkManager
 import com.finance.trade_learn.viewModel.ViewModelMarket
 import com.finance.trade_learn.viewModel.viewModelUtils
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 var isCameFromActivity = false
@@ -24,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dataBindingMain: ActivityMainBinding
     private lateinit var viewModelUtils: viewModelUtils
     private lateinit var viewModelMarket: ViewModelMarket
+
+
+    private lateinit var firestore: FirebaseFirestore
 
     // val disposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
             when (controller.currentDestination?.label.toString()) {
                 "marketPage" -> {
-                    val directions = marketPageDirections.actionMarketPageToTradePage()
+                    val directions = MarketPageDirections.actionMarketPageToTradePage()
                     controller.navigate(directions)
                 }
                 "home" -> {
@@ -99,6 +107,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onRestart()
+    }
+
+
+    fun firebaseSave(){
+
+        firestore = Firebase.firestore
+
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
+        val openAppDetails = hashMapOf(
+            "open" to "1",
+            "time" to currentDate,
+            "country" to Locale.getDefault().country
+        )
+
+        firestore.collection("StartApp").add(openAppDetails).addOnSuccessListener {
+            Toast.makeText(this, "opened page", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+
+            Toast.makeText(this, "opened page failed", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

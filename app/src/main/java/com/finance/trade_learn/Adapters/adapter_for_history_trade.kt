@@ -13,7 +13,14 @@ import com.finance.trade_learn.enums.tradeEnum
 
 class adapter_for_history_trade(val list_of_trade: ArrayList<SaveCoin>) :
     RecyclerView.Adapter<adapter_for_history_trade.viewHolder>() {
+
+
     inner class viewHolder(val view: ItemOfHistoryBinding) : RecyclerView.ViewHolder(view.root)
+
+
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val inflater = LayoutInflater.from(parent.context)

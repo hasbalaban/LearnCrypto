@@ -28,7 +28,7 @@ data class BaseModelCrypto(
     val high: String,
     val high_timestamp: String,
     @SerializedName("1d")
-    val day1: Day1,
+    val day1: Day1?,
     @SerializedName("7d")
     val Day7: Day7,
     @SerializedName("30d")

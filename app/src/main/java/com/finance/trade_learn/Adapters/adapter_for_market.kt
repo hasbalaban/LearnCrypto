@@ -9,20 +9,31 @@ import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.finance.trade_learn.clickListener.MarketClickListener
 import com.finance.trade_learn.R
+import com.finance.trade_learn.database.dataBaseEntities.SaveCoin
 import com.finance.trade_learn.databinding.ItemCoinOfTodayBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
+import com.finance.trade_learn.utils.DifferentItems
 import com.finance.trade_learn.utils.setImageSvg
 import com.finance.trade_learn.utils.sharedPreferencesManager
 import com.finance.trade_learn.view.firstSet
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
     RecyclerView.Adapter<adapter_for_market.viewHolder>() {
 
-    private var lsize = list.size
+
+    private var firstEnter = true
+    private var border = 0
+
 
 
     class viewHolder(val view: ItemCoinOfTodayBinding) : RecyclerView.ViewHolder(view.root)
@@ -36,10 +47,13 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
+        val a = position
+        border = a
+
 
         when (list[position].raise) {
 
-            enumPriceChange.pozitive ->{
+            enumPriceChange.pozitive -> {
                 holder.view.coinPrice.setTextColor(Color.parseColor("#2ebd85"))
             }
             enumPriceChange.negative -> {
@@ -80,7 +94,6 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
         animationSet(position, holder.view.LayoutCoin)
         holder.view.coinImage.setImageSvg(list[position].CoinImage)
 
-
     }
 
     override fun getItemCount(): Int {
@@ -90,7 +103,8 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
     fun animationSet(position: Int, layoutCoin: ConstraintLayout) {
         if (position < 10 && firstSet) {
             val animation = AnimationUtils.loadAnimation(
-                context,R.anim.animation_for_item_of_recyclers )
+                context, R.anim.animation_for_item_of_recyclers
+            )
 
             layoutCoin.animation = animation
         } else {
@@ -115,11 +129,45 @@ class adapter_for_market(val context: Context, val list: ArrayList<CoinsHome>) :
     }
 
 
-    fun UpdateMarket(newList: List<CoinsHome>) {
-        list.clear()
-        list.addAll(newList)
-        notifyDataSetChanged()
+
+
+    fun updateData(newList: ArrayList<CoinsHome>) {
+        if (firstEnter) {
+            list.addAll(newList)
+            notifyDataSetChanged()
+            // this code will change everything.
+            firstEnter = !firstEnter
+        } else {
+            updateLastList(newList, list)
+            // list.clear()
+            // list.addAll(newList)
+        }
+
 
     }
+
+    private fun updateLastList(newList: ArrayList<CoinsHome>, oldList: ArrayList<CoinsHome>) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val diff = DifferentItems<CoinsHome>(oldList, newList).comporeItems()
+            if (diff.isNotEmpty()) {
+                for (i in 0..diff.size - 1) {
+                    val newItem = diff[i].comparedList
+                    list[diff[i].position] = newItem
+                    withContext(Dispatchers.Main) {
+
+                        if (diff[i].position <= border && diff[i].position + 5> border) {
+                            notifyItemChanged(diff[i].position)
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+    }
+
 
 }

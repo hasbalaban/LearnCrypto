@@ -20,9 +20,8 @@ import com.finance.trade_learn.Adapters.adapter_for_hot_coins
 import com.finance.trade_learn.Adapters.adapter_for_populer_coins
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.FragmentHomeBinding
-import com.finance.trade_learn.models.modelsConvector.CoinsHome
 import com.finance.trade_learn.utils.IntentNavigate
-import com.finance.trade_learn.viewModel.viewModeHomePage
+import com.finance.trade_learn.viewModel.ViewModeHomePage
 import kotlinx.coroutines.runBlocking
 
 class home : Fragment() {
@@ -31,7 +30,7 @@ class home : Fragment() {
     lateinit var adapterForPopulerList: adapter_for_populer_coins
     var viewVisible = false
     lateinit var dataBindingHome: FragmentHomeBinding
-    lateinit var viewModelHome: viewModeHomePage
+    lateinit var viewModelHome: ViewModeHomePage
     var runnable = Runnable { }
     var handler = Handler(Looper.getMainLooper())
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,7 @@ class home : Fragment() {
 
     private fun providers() {
 
-        viewModelHome = ViewModelProvider(requireActivity())[viewModeHomePage::class.java]
+        viewModelHome = ViewModelProvider(requireActivity())[ViewModeHomePage::class.java]
 
     }
 
@@ -88,14 +87,15 @@ class home : Fragment() {
         val state = viewModelHome.isInitialize
         Log.i("state", state.toString())
 
-        if (state) {
-            viewModelHome.ListOfCrypto.observe(viewLifecycleOwner, Observer {
+        if (state.value!!) {
+            viewModelHome.listOfCrypto.observe(viewLifecycleOwner, Observer {
 
                 adapterForHotList.updateData(it)
+                viewModelHome.isInitialize.value=true
             })
-            viewModelHome.ListOfCryptoForPopuler.observe(viewLifecycleOwner, Observer {
+            viewModelHome.listOfCryptoForPopular.observe(viewLifecycleOwner, Observer {
 
-                adapterForPopulerList.updatePopuler(it)
+                adapterForPopulerList.updateData(it)
             })
         }
     }
@@ -105,9 +105,11 @@ class home : Fragment() {
     fun startAnimation() {
         val animation =
             AnimationUtils.loadAnimation(requireContext(), R.anim.animation_for_home_view)
-        val imageView = dataBindingHome.HomeView
+
+        val imageView = dataBindingHome.notices
         imageView.animation = animation
     }
+
 
     // We Check State of Loading if loading is succesed we Will initialize adapter here
     // then we will set on recycler view
@@ -122,19 +124,22 @@ class home : Fragment() {
             viewModelHome.state.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     if (viewVisible) {
-                        viewModelHome.ListOfCrypto.observe(
+                        viewModelHome.listOfCrypto.observe(
                             viewLifecycleOwner,
                             Observer { list ->
 
                                 adapterForHotList.updateData(list)
+                                if (viewModelHome.isInitialize.value!!){
+                                    dataBindingHome.progressBar.visibility=View.INVISIBLE
+                                }
 
 
                             })
 
-                        viewModelHome.ListOfCryptoForPopuler.observe(
+                        viewModelHome.listOfCryptoForPopular.observe(
                             viewLifecycleOwner,
                             Observer { list ->
-                                adapterForPopulerList.updatePopuler(list)
+                                adapterForPopulerList.updateData(list)
 
                             })
                     }
@@ -156,7 +161,7 @@ class home : Fragment() {
 
                 }
 
-                handler.postDelayed(runnable, 5000)
+                handler.postDelayed(runnable, 3000)
 
             }
 

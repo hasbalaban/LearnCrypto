@@ -11,7 +11,7 @@
         android:label="walletPage" />
     <fragment
         android:id="@+id/marketPage"
-        android:name="com.finance.trade_learn.view.marketPage"
+        android:name="com.finance.trade_learn.view.MarketPage"
         android:label="marketPage">
         <action
             android:id="@+id/action_marketPage_to_tradePage"

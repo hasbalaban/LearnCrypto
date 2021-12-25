@@ -232,9 +232,9 @@ class viewModelCurrentTrade(context: Context) : ViewModel() {
 
         val newTrade = SaveCoin(
             coinName = coinName,
-            coinPrice = coinPrice.toString(),
-            coinAmount = coinAmount.toString(),
-            total = total.toString(),
+            coinPrice = coinPrice.toBigDecimal().toString(),
+            coinAmount = coinAmount.toBigDecimal().toString(),
+            total = total.toBigDecimal().toString(),
             date = currentTime,
             tradeOperation = tradeOperation.toString()
         )

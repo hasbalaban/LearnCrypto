@@ -11,9 +11,17 @@ import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.ItemOfPopulerCoinsBinding
 import com.finance.trade_learn.enums.enumPriceChange
 import com.finance.trade_learn.models.modelsConvector.CoinsHome
+import com.finance.trade_learn.utils.DifferentItems
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsHome>) :
     RecyclerView.Adapter<adapter_for_populer_coins.ViewHolder>() {
+
+    private var firstEnter = true
+    private var border = 0
 
     class ViewHolder(val view: ItemOfPopulerCoinsBinding) : RecyclerView.ViewHolder(view.root)
 
@@ -33,6 +41,10 @@ class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsH
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val a = position
+        border = a
+
         when (list[position].raise) {
 
             enumPriceChange.pozitive -> {
@@ -68,7 +80,7 @@ class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsH
         val animation = AnimationUtils.loadAnimation(
             context, R.anim.animation_for_populer_coins
         )
-        holder.view.layoutPopulerCoins.animation = animation
+     //   holder.view.layoutPopulerCoins.animation = animation
 
 
     }
@@ -78,11 +90,45 @@ class adapter_for_populer_coins(val context: Context, val list: ArrayList<CoinsH
     }
 
 
-    fun updatePopuler(newList: List<CoinsHome>) {
-        list.clear()
-        list.addAll(newList)
-        notifyDataSetChanged()
+
+    fun updateData(newList: ArrayList<CoinsHome>) {
+        if (firstEnter) {
+            list.addAll(newList)
+            notifyDataSetChanged()
+            // this code will change everything.
+            firstEnter = !firstEnter
+        } else {
+            updateLastList(newList, list)
+            // list.clear()
+            // list.addAll(newList)
+        }
+
 
     }
+
+    private fun updateLastList(newList: ArrayList<CoinsHome>, oldList: ArrayList<CoinsHome>) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val diff = DifferentItems<CoinsHome>(oldList, newList).comporeItems()
+            if (diff.isNotEmpty()) {
+                for (i in 0..diff.size - 1) {
+                    val newItem = diff[i].comparedList
+                    list[diff[i].position] = newItem
+                    withContext(Dispatchers.Main) {
+
+                        if (diff[i].position <= border && diff[i].position + 5> border) {
+                            notifyItemChanged(diff[i].position)
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+    }
+
+
 
 }

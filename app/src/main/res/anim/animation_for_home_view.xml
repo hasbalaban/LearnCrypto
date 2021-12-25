@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="700"
-    android:startOffset="100">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <scale
-        android:fromXScale="0"
-        android:fromYScale="1"
-        android:pivotX="65%"
-        android:pivotY="45%"
-        android:toXScale="1"
-        android:toYScale="1" />
     <translate
-        android:fromXDelta="-100%"
-        android:toXDelta="0%" />
-
-
-
+        android:repeatCount="infinite"
+        android:duration="10000"
+        android:fromXDelta="-99%"
+        android:toXDelta="32%" />
 
 </set>

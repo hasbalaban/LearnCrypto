@@ -15,7 +15,7 @@ interface databaseDao {
     suspend fun addCoin(myCoins: myCoins)
 
 
-    @Query("select * from myCoins")
+    @Query("select * from myCoins where CoinAmount>0.0")
     suspend fun getAllCoins(): List<myCoins>
 
 

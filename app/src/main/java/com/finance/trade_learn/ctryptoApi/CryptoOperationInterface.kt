@@ -14,12 +14,12 @@ interface CryptoOperationInterface {
         @Query("key") apiKey: String
     ): Single<List<BaseModelCrypto>>
 
-    @GET("currencies/ticker?convert=USD&per-page=50&page=1")
+    @GET("currencies/ticker?convert=USD&per-page=300&page=1")
     fun getAllCrypto(
         @Query("key") apiKey: String
     ): Single<List<BaseModelCrypto>>
 
-    @GET("currencies/ticker?convert=USD&per-page=1000&page=1")
+    @GET("currencies/ticker?convert=USD&per-page=200&page=1")
     fun AllCrypto200(
         @Query("key") apiKey: String
     ): Single<List<BaseModelCrypto>>
