@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.finance.trade_learn.R
 import com.finance.trade_learn.databinding.ActivityMainBinding
+import com.finance.trade_learn.utils.sharedPreferencesManager
 import com.finance.trade_learn.utils.testWorkManager
 import com.finance.trade_learn.viewModel.ViewModelMarket
 import com.finance.trade_learn.viewModel.viewModelUtils
@@ -44,11 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         isOneEntering()
 
+        firebaseSave()
+
 
     }
 
 
-   private fun providers() {
+    private fun providers() {
         viewModelMarket = ViewModelProvider(this).get(ViewModelMarket::class.java)
 
     }
@@ -77,6 +80,14 @@ class MainActivity : AppCompatActivity() {
             // these functions just for test
             testWorkManager()
             Log.i("first", "this is first Entering")
+
+            val deviceId = UUID.randomUUID()
+            sharedPreferencesManager(this).addSharedPreferencesString(
+                "deviceId",
+                deviceId.toString()
+            )
+
+
         } else
             Log.i("firstNot", "this is not first Entering")
 
@@ -110,24 +121,29 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun firebaseSave(){
+    fun firebaseSave() {
 
         firestore = Firebase.firestore
 
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
 
+        val deviceID = sharedPreferencesManager(this).getSharedPreferencesString("deviceId", "0")
+
+
         val openAppDetails = hashMapOf(
             "open" to "1",
             "time" to currentDate,
-            "country" to Locale.getDefault().country
+            "country" to Locale.getDefault().country,
+            "deviceID" to deviceID
         )
 
-        firestore.collection("StartApp").add(openAppDetails).addOnSuccessListener {
-            Toast.makeText(this, "opened page", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
+        if (deviceID != "057eea2e-396c-4117-b5d4-782b247000f9") {// this condotion will be delete
+            firestore.collection("StartApp").add(openAppDetails).addOnSuccessListener {
 
-            Toast.makeText(this, "opened page failed", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+
+            }
         }
     }
 
