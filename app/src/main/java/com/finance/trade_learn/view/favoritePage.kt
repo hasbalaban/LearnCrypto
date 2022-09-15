@@ -29,6 +29,7 @@ class favoritePage : Fragment() {
             inflater, R.layout.fragment_favorite_page,
             container, false
         )
+        println("")
         return  dataBindingFavorite.root
     }
 }
